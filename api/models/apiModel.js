@@ -15,7 +15,7 @@ var SignUpSchema = new Schema({
   	type: String,
   	required: 'Kindly input the password'
   },
-  roles: {
+  role: {
         type: [{
             type: String,
             enum: ['borrower', 'lender']
@@ -33,7 +33,7 @@ var SignUpSchema = new Schema({
    	},
    	repaymentdate: {
    		type: Date,
-   		default: Date.now
+   		default: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
    	},
    	isRepaymentDone: {
    		type: [{

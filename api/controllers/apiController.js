@@ -9,12 +9,15 @@ exports.create_new_user = function(req, res) {
   SignUp.find({email:req.body.email},function (err, users) {
   if (err) return console.error(err);
   if(users.length){
-  	res.send("Email is already Registered");
+  	//res.send("Email is already Registered");
+  	//res.sendStatus(500);
+  	res.send({message:"Email is already Registered"});
   }else {
   		new_user.save(function(err, user) {
     	if (err)
       		res.send(err);
-    	res.json(user);
+    	//res.send(JSON.stringify(user));
+    	res.send({message:"User Successfully Registered"});
   	});
   }
 });
@@ -29,10 +32,11 @@ exports.login_email_password = function(req, res) {
 		if(err)
 			res.send(err);
 		if(loginSuccess.length){
-			//res.send("User authorized");
-			res.redirect("welcome/"+user_email);
+			res.send({message:"success"});
+			//res.redirect("welcome/"+user_email);
 		}else {
-			res.send("Incorrect Credentials");
+			//res.send("Incorrect Credentials");
+			res.send({message:"fail"});
 		}
 	});
 };
@@ -40,7 +44,11 @@ exports.login_email_password = function(req, res) {
 exports.welcome_page = function(req, res) {
 	var user_email = req.params.user_email;
 	//console.log(req.params.user_email);
-	res.send("Welcome,"+user_email);
+	SignUp.findOne({email:user_email},function(err,user){
+		if(err)
+			res.send(err);
+		res.send({message:"Welcome,"+user_email,role:user.role[0]});
+	});
 };
 
 exports.new_credit_request = function(req, res) {
@@ -59,9 +67,10 @@ exports.new_credit_request = function(req, res) {
 	 		}
 	 		//console.log(successMessage.nModified);
 	 		if(successMessage.nModified){
-      			res.redirect("/borrower/"+user_email);
+	 			res.send({message:"Successfully created new credit request"});
+      			//res.redirect("/api/borrower/"+user_email);
       		}else {
-      			res.send("Credit amount request is greater than credit limit.");
+      			res.send({message:"Credit amount request is greater than credit limit."});
       		}
 	 });
 };
@@ -72,7 +81,7 @@ exports.all_credit_requests = function(req, res) {
 		if (err) {
 	 			res.send(err);
 	 		}
-      		res.send(allRequests);
+      		res.send(allRequests.creditRequest);
 	});
 };
 

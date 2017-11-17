@@ -24,9 +24,9 @@ module.exports = function(app) {
    	 	.put(signup.change_repayment);
 
 
-  app.route('/signup')
-    .get(UIview.get_signup_page);
+  // app.route('/signup')
+  //   .get(UIview.get_signup_page)
 
-  app.route('/login')
-    .get(UIview.get_login_page);  
+  // app.route('/login')
+  //   .get(UIview.get_login_page);  
   };
