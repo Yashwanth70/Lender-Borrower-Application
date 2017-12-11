@@ -2,11 +2,18 @@
 # API for lender and borrower Schema
 ### Problem Statement:  
 Create a small NodeJS application for a borrower-lender scenario.
-### APIs required for Borrower
-* POST : Create a new credit request,
-* GET : Get List of All Credit Requests.
 
-### APIs required for Lender
+### Functionalities (API required) :
+* Creation (SignUp) of a new Borrower User [Name, email, password]
+** The system can have any number of borrower users
+** Every borrower should have a initial credit limit of Rs 1,00,000 (set automatically on sign up)
+*Creation (SignUp) of a new Lender User [Name, email, password]
+** Ensure that there can only be one lender user in the system 
+#### APIs required for Borrower
+* POST : Create a new credit request ( Amount, Repayment Date ),
+* GET : Get List of All Credit Requests
+
+#### APIs required for Lender
 * PUT : Mark a specific credit request as completed,
 * GET : Get all credit requests in the system,
 * GET : Get List of All Borrowers.
